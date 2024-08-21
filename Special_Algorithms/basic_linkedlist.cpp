@@ -6,10 +6,7 @@ class node{
       int value;
       node* link;
 
-      node(int val){
-          value = val;
-          link = NULL;
-      }  
+    node(int val): value(val) , link(nullptr){}
 };
 
 void insert(node* &head , int v){// for insert an element in start of linked list.
@@ -76,6 +73,20 @@ void print(node * head){// func for display linked list.
     cout << "NULL" << endl;
 }
 
+void dlt_head(node*& head) { // node detilion from strating.
+    if (head != nullptr) {
+        node* temp = head;
+        head = head->link;
+        delete temp;
+    }
+}
+
+void delete_list(node*& head) { // delete whole list.
+    while (head != nullptr) {
+        dlt_head(head);
+    }
+}
+
 int main(){
     node* head = NULL;
     insert(head,4);
@@ -86,8 +97,22 @@ int main(){
     insertatposi(head,8,2);
     cout << "updated linked list :- ";
     print(head);
+
     updateatposi(head,7,3);
     cout << "updated linked list :- ";
     print(head);
+
+    dlt_head(head);
+    cout << "first node deleted :- ";
+    print(head);
+
+    dlt_head(head);
+    cout << "first node deleted :- ";
+    print(head);
+
+    delete_list(head);
+    cout << "whole list deleted :- ";
+    print(head);
+    
     return 0;
 }
