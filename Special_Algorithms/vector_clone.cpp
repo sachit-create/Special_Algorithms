@@ -66,7 +66,7 @@ int main(){
     v.add(40);
     v.print();
      cout << v.size << " " << v.capacity << endl;//4 4
-    // to get the indexed value.
+    // to get the indexed value of element.
     v.get(10);
     v.get(3);
     // to remove.
