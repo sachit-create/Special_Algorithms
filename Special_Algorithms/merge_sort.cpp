@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-// merge sort algorithm. time complexity worst case -> 0(nlogn).
+// Merge sort algorithm. time complexity worst case -> 0(nlogn).
 
 // func for merge two halfs orderly.
 void merge(int *arr , int l , int mid , int r){
