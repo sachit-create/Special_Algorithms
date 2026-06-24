@@ -58,8 +58,8 @@ int main(){
 
     merge_sort(arr , 0 , arr.size()-1);
 
-    for(int i=0 ; i<n ; i++){
-        cout << arr[i] << " ";
-    }
+    for(int ele : arr) cout << ele;
+    cout << endl;
+    
     return 0;
 }
