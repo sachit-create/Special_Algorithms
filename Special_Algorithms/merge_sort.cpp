@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 // Merge sort algorithm. time complexity worst case -> 0(nlogn).
@@ -53,10 +54,9 @@ void merge_sort(int *arr , int l , int r){
 }
 
 int main(){
-    int arr[] = {5,4,3,2,1};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    
-    merge_sort(arr , 0 , n-1);
+    vector<int> arr = {5,4,3,2,1};
+
+    merge_sort(arr , 0 , arr.size()-1);
 
     for(int i=0 ; i<n ; i++){
         cout << arr[i] << " ";
