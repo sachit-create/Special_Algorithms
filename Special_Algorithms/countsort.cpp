@@ -1,56 +1,49 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <climits>
 using namespace std;
 
-void count_sort(vector<int> &v){
-    int n = v.size();
+void count_sort(vector<int>& v) {
+    if (v.empty()) return;
 
-    int max = INT_MIN;
-    for(int i=0; i<n ; i++){
-        if(max < v[i]){
-           max = v[i];
-        }
-    }
-    
-    vector<int> freq(max+1,0);
-    // creating frequency array.
-    for(int i=0 ; i<n ; i++){
-        freq[v[i]]++;
+    int minVal = *min_element(v.begin(), v.end());
+    int maxVal = *max_element(v.begin(), v.end());
+    int range = maxVal - minVal + 1;
+
+    vector<int> freq(range, 0);
+    for (int x : v) {
+        freq[x - minVal]++;
     }
 
-    //calculate comulative frequency.
-    for(int i=1 ; i<=max ; i++){
-        freq[i]+=freq[i-1];
+    for (int i = 1; i < range; ++i) {
+        freq[i] += freq[i - 1];
     }
 
-    //caluclating sorted array.
-    vector<int> ans(n);
-    for(int i=n-1 ; i>=0 ; i--){
-        ans[--freq[v[i]]] = v[i];
+    vector<int> ans(v.size());
+    for (int i = (int)v.size() - 1; i >= 0; --i) {
+        int x = v[i];
+        ans[--freq[x - minVal]] = x;
     }
 
-    //copying the ans array to given array.
-    for(int i=0 ; i<n ; i++){
-        v[i] = ans[i];
-    }
-
+    v = ans;
 }
 
-int main(){
+int main() {
     int n;
     cin >> n;
     vector<int> v(n);
 
-    for (int i = 0; i < n; i++){
-        cin >> v[i]; 
+    for (int i = 0; i < n; ++i) {
+        cin >> v[i];
     }
 
     count_sort(v);
-    
-    for(int i=0; i<n ; i++){
+
+    for (int i = 0; i < n; ++i) {
         cout << v[i] << " ";
-    } 
+    }
+    cout << endl;
 
     return 0;
 }

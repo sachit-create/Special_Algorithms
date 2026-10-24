@@ -2,64 +2,43 @@
 #include <vector>
 using namespace std;
 
-// Merge sort algorithm. time complexity worst case -> 0(nlogn).
+void merge(vector<int>& arr, int l, int mid, int r) {
+    int n1 = mid - l + 1;
+    int n2 = r - mid;
 
-// func for merge two halfs orderly.
-void merge(int *arr , int l , int mid , int r){
-    // size of temporary array.
-       int n1 = mid-l+1;
-       int n2 = r-mid;
-    // creating two holding array;
-       int a[n1];
-       int b[n2];
-    // putting the halfs in it.
-    for(int i=0 ; i<n1 ; i++){
-        a[i] = arr[l+i];
-    }
-    for(int j=0 ; j<n2 ; j++){
-        b[j] = arr[mid+1+j];
-    }
-//    f       s      merge/output.
-    int i=0 , j=0 , k=l;
+    vector<int> left(n1), right(n2);
+    for (int i = 0; i < n1; ++i) left[i] = arr[l + i];
+    for (int j = 0; j < n2; ++j) right[j] = arr[mid + 1 + j];
 
-    while(i<n1 && j<n2){
-        if(a[i] < b[j]){
-            arr[k++] = a[i++];
-        }
-        else{
-            arr[k++] = b[j++];
+    int i = 0, j = 0, k = l;
+    while (i < n1 && j < n2) {
+        if (left[i] <= right[j]) {
+            arr[k++] = left[i++];
+        } else {
+            arr[k++] = right[j++];
         }
     }
 
-    while(i<n1){
-        arr[k++] = a[i++];
-    }
-
-    while(j<n2){
-        arr[k++] = a[j++];
-    }
-}
-// func for recursively sort array.
-void merge_sort(int *arr , int l , int r){
-    //base case.
-     if(l>=r) return;
-     // mid point.
-     int mid = (l+r)/2;
-     // first half array.
-     merge_sort(arr,l,mid);
-     // second half array.
-     merge_sort(arr,mid+1,r);
-     // merging 1 and 2.
-     merge(arr,l,mid,r);
+    while (i < n1) arr[k++] = left[i++];
+    while (j < n2) arr[k++] = right[j++];
 }
 
-int main(){
-    vector<int> arr = {5,4,3,2,1};
+void merge_sort(vector<int>& arr, int l, int r) {
+    if (l >= r) return;
 
-    merge_sort(arr , 0 , arr.size()-1);
+    int mid = l + (r - l) / 2;
+    merge_sort(arr, l, mid);
+    merge_sort(arr, mid + 1, r);
+    merge(arr, l, mid, r);
+}
 
-    for(int ele : arr) cout << ele;
+int main() {
+    vector<int> arr = {5, 4, 3, 2, 1};
+
+    merge_sort(arr, 0, (int)arr.size() - 1);
+
+    for (int ele : arr) cout << ele << " ";
     cout << endl;
-    
+
     return 0;
 }

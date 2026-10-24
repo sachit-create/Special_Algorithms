@@ -1,54 +1,55 @@
 #include <iostream>
 using namespace std;
 
-class Node{
-  public:
+class Node {
+public:
     int value;
     Node* next;
 
-    Node(int val){
+    Node(int val) {
         value = val;
         next = NULL;
     }
 };
 
-class LinkedList{
-    public:
-        Node* head;
-      LinkedList(){
+class LinkedList {
+public:
+    Node* head;
+
+    LinkedList() {
         head = NULL;
-      }
+    }
 
-      void insert(int val){
-         Node* newn = new Node(val);
-         newn->next = head;
-         head = newn;
-      }
+    void insert(int val) {
+        Node* newn = new Node(val);
+        newn->next = head;
+        head = newn;
+    }
 
-     void display(){
+    void display() {
         Node* temp = head;
-        while(temp != NULL){
+        while (temp != NULL) {
             cout << temp->value << " --- ";
             temp = temp->next;
         }
         cout << "NULL" << endl;
-     } 
+    }
 
-     void reverse(){
+    void reverse() {
         Node* prevptr = NULL;
         Node* current = head;
 
-        while(current!=NULL){
+        while (current != NULL) {
             Node* nextptr = current->next;
             current->next = prevptr;
             prevptr = current;
             current = nextptr;
         }
         head = prevptr;
-     }
+    }
 };
 
-int main(){
+int main() {
     LinkedList ll;
     ll.insert(1);
     ll.insert(2);
